@@ -64,7 +64,8 @@ int extract_access_token(char* token_response) {
 
 int get_access_token(char* token_buffer) {
 
-    std::string url = std::string(client_credentials.host) + "/oauth/v2/token";
+    std::string host =  "https://accounts.zoho.com.au";
+    std::string url = host + "/oauth/v2/token";
     char* body = build_body(client_credentials);
 
     curl_post_request(url.c_str(), body, token_buffer);

@@ -101,7 +101,7 @@ int curl_post_request(const char* target_host, char* body, char* result_buffer) 
     return 0;
 }
 
-int curl_get_request(const char* target_host, const char* auth_header, char* result_buffer) {
+int curl_get_request(const char* target_host, const char* auth_header, std::string& result_buffer) {
 
     std::cout << "[curl_handler.h] Target Host: " << target_host << std::endl;
     std::cout << "[curl_handler.h] GET with headers: " << auth_header << std::endl;
@@ -146,7 +146,8 @@ int curl_get_request(const char* target_host, const char* auth_header, char* res
         }
 
         // write to result buffer
-        strcpy(result_buffer, readBuffer.c_str());
+        //strcpy(result_buffer, readBuffer.c_str());
+        result_buffer = readBuffer;
 
         // Step 6: Cleanup
         curl_easy_cleanup(curl);

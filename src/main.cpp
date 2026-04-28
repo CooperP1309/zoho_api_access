@@ -3,11 +3,14 @@
 #include <winsock2.h>
 #include <windows.h>
 #include <shellapi.h>
+#include <nlohmann/json.hpp>
 
 // src libs
 #include "client_credentials.h"
 #include "access_token.h"
 #include "api_caller.h"
+
+using json = nlohmann::json;
 
 // global client credentials struct
 Client_credentials client_credentials;
@@ -33,7 +36,15 @@ int main() {
         return 0;
     }
 
-    std::cout << "[MAIN] Access Token: " << access_token << std::endl << std::endl;
+    /*----- EXAMPLE API CALL -----*/
+    std::string api_response;
+
+    call_api("/crm/v8/Contacts?fields=Last_Name,Email,Record_Status__s,Converted__s,Converted_Date_Time&converted=true&per_page=5", access_token, api_response);
+
+    std::cout << "[MAIN] API Response:\n\n" << api_response << "\n\n";
+
+    json response_json = json::parse(api_response);
+    std::cout << std::endl << "[MAIN] 5 Contacts in Zoho CRM: " << std::endl << response_json.dump(4) << std::endl << std::endl;
 
     free(access_token);
 

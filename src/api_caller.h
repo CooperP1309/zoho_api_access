@@ -5,7 +5,7 @@
 #include "curl_handler.h"
 
 // TODO: IMPLEMENT POST METHOD CALLS (MAYBE BOOL ARG TO SPECIFY POST OR GET)
-int call_api(const char* endpoint, char* access_token, char* result_buffer) {
+int call_api(const char* endpoint, char* access_token, std::string& result_buffer) {
     
     std::string auth_header = std::string("Authorization: Bearer ") + std::string(access_token);
     std::string url = std::string(client_credentials.host) + endpoint;
